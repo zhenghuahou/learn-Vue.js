@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson</title>
+    <style>
+    .completed{
+      text-decoration:line-through;
+    }
+    </style>
+</head>
+<body>
+
+  <div id="app">
+    <ul>
+      <!-- 利用对象来绑定类名,也可以利用数组绑定 -->
+      <!-- 利用click直接修改每条task中的completed属性 -->
+      <li :class="{'completed':task.completed}" v-for="task in tasks"
+          @click="task.completed = !task.completed">{{task.body}}</li>
+
+      <!-- 或者利用methods定义方法调用 @click="toggle(task)" -->
+    </ul>
+  </div>
+
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.1/vue.min.js"></script>
+    <script type="text/javascript">
+      new Vue({
+        el:"#app",
+
+          data:{
+            tasks:[
+              {body:'go to the school',completed:false},
+              {body:'go to the bank',completed:false},
+              {body:'go to the doctor',completed:true}
+            ]
+          },
+
+          methods:{
+            toggle:function(task){
+              task.completed = !task.completed;
+            }
+          }
+        });
+    </script>
+</body>
+</html>

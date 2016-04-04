@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson</title>
+</head>
+<body>
+
+  <div id="app">
+    <counter :msg="0+1+2+3+4"></counter>
+    <counter :msg="0"></counter>
+    <p>skill:{{skill}}</p>
+    <input type="text" v-model="point">
+    <p>{{fullname}}</p>
+    <input type="text" v-model="firstName">
+    <input type="text" v-model="lastName">
+  </div>
+
+
+  <template id="counter-template">
+    <h1>{{ msg }}</h1>
+
+    <button @click="handleClick">
+      {{click}}
+    </button>
+  </template>
+
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.1/vue.min.js"></script>
+    <script>
+      Vue.component('counter', {
+        props: ['msg'],
+
+        data: function() {
+          return {
+            count: 0,
+            click:'点击增加'
+          };
+        },
+
+        methods:{
+          handleClick:function(){
+            //this.count ++;
+            this.msg++;
+          }
+        },
+        template: '#counter-template'
+      });
+
+
+      new Vue({
+        el: '#app',
+        data:{
+          point:61,
+          firstName:'Ge',
+          lastName:'Clarence'
+        },
+        computed:{
+          skill:function(){
+            if(this.point < 60){
+              return "beginner";
+            } else {
+              return "advancer";
+            }
+          },
+          fullname:function(){
+            return this.firstName +' '+ this.lastName;
+          }
+        }
+      });
+
+    </script>
+</body>
+</html>
