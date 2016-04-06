@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Lesson</title>
+</head>
+<body>
+  <ul>
+    <li v-for="person in people | role 'student' ">{{ person.name }}</li>
+  </ul>
+</body>
+<script>
+/* 官方提供filter的一些用法，同时还可以自定义方法 */
+
+Vue.filter('role',function(value,role){
+  return value.filter(function(item){
+    return item.role == role;
+  })
+})
+
+new Vue({
+  el:'body',
+  data:{
+    people:[
+      {name:'Clarence', role:'admin'},
+      {name:'Susan', role:'student'},
+      {name:'Jeffery', role:'teacher'},
+      {name:'Mami', role:'student'},
+      {name:'Sharon', role:'teacher'},
+    ]
+  }
+})
+</script>
+</html>

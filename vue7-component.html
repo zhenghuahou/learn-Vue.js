@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Lesson</title>
+    <style media="screen">
+    .Alert{
+      position:relative;
+      background:#ddd;
+      border:1px solid darken(#ddd,10%);
+      padding:1em;
+    }
+
+    .Alert--success{
+      background:lighten(green,70%);
+      border:1px solid lighten(green,30%);
+    }
+
+    .Alert--error{
+      background:lighten(red,70%);
+      border:1px solid lighten(red,30%);
+    }
+
+    .Alert__close{
+      position:absolute;
+      top:1em;
+      right:1em;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    </style>
+</head>
+<body>
+
+  <alert>
+    <strong>General!</strong>Your account remains
+  </alert>
+
+  <alert type="success">
+    <strong>Success!</strong>Your account has been updated.
+  </alert>
+
+  <alert type="error">
+    <strong>Error!</strong>Your account has not been updated.
+  </alert>
+
+  <template id="alert-template">
+    <div :class="alertClasses" v-show="show">
+
+      <slot></slot>
+      <span class="Alert__close" @click="show = false">x</span>
+    </div>
+  </template>
+
+  <script>
+  Vue.component('alert',{
+    template:'#alert-template',
+    data:function(){
+      return {
+        show:true
+      };
+    },
+    props:['type'],
+    computed:{
+      alertClasses:function(){
+        var type = this.type;
+
+        return {
+          'Alert':true,
+          'Alert--success':type == 'success',
+          'Alert--error':type == 'error'
+        }
+      }
+    }
+  });
+
+  new Vue({
+    el:'body'
+  });
+  </script>
+</body>
+</html>
