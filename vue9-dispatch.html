@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Lesson</title>
+</head>
+<body>
+  <message></message>
+</body>
+<script>
+Vue.component('message',{
+  template:'<input v-model="message" @keyup.enter="storeMessage">',
+
+  data:function(){
+    return {message:''};
+  },
+
+  methods:{
+    storeMessage:function(){
+
+      this.$dispatch('new-message', this.message);
+
+      this.message = '';
+    }
+  }
+});
+
+new Vue({
+  el:'body',
+
+  events:{
+    // 派发事件，首先在实例上触发它，然后沿着父链向上冒泡在触发一个监听器后停止，
+    //除非它返回 true。附加参数都会传给监听器回调
+    'new-message':function(message){
+      console.log('Parent is handling ' + message);
+    }
+  }
+});
+</script>
+</html>
