@@ -6,9 +6,9 @@ module.exports = {
   entry:'./src/main',
   //输出
   output:{
-    path: path.join(_dirname, './dist'),
-    filename:'[name].js',
-    publicPath:'/dist'
+    path: path.join(__dirname, './dist'),
+    filename: '[name].js',
+    publicPath: '/dist/'
   },
 
   module:{
@@ -18,6 +18,7 @@ module.exports = {
       {test:/\.js$/,loader:'babel',exclude:/node_modules/},
       {test:/\.css$/,loader:'!style!css!autoprefixer'},
       {test:/\.less$/,loader:'!style!css!autoprefixer!less'},
+      {test:/\/sass$/,loader:'!style!css!autoprefixer!sasa'},
       {test:/\.(png|jpg|gif)$/,loader:'url-loader'},
       {test:/\.(html|tpl)$/,loader:'html-loader'}
     ]
@@ -43,8 +44,8 @@ module.exports = {
     extensions:['','.js','.vue'],
     //别名
     alias:{
-      filter:path.join(_dirname, './src/filters'),
-      components:path.join(_dirname, './src/components')
+      filter:path.join(__dirname, './src/filters'),
+      components:path.join(__dirname, './src/components')
     }
   },
 
