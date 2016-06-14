@@ -3,12 +3,10 @@
 @Date:   2016-06-13 16:23:58
 @Email:  geyuanjun.sh@superjia.com
 @Last modified by:   geyuanjun
-@Last modified time: 2016-06-14 15:30:23
+@Last modified time: 2016-06-14 15:35:12
 -->
 
 
-
-# Vue.js 漫谈
 
 ### 一、简单的Vue程序
 ```html
@@ -65,69 +63,74 @@ new Vue({
 ### 二、Vue中几个常用的API
 1. 指令
     - `v-if`：所操作元素在DOM中会销毁或者重建
-        ```html
-        <h1 v-if="ok">Yes</h1>
-        ```
-    - `v-show`：相当于修改DOM元素的`display`属性，元素会始终保持在DOM结构中
-        ```html
-        <h1 v-show="ok">Yes</h1>
-        ```
-    - `v-bind`:绑定属性或者prop传值需要做值的解析
-        ```html
-        <div class="static" v-bind:class="{ 'class-a': isA, 'class-b': isB }"></div>
-        ```
-        ```javascript
-        data: {
-          isA: true,
-          isB: false
-        }
-        ```
-    - `v-on`：绑定方法或者事件
-    - `v-for`:循环一个数组，根据数组中的元素来修改DOM
-        ```html
-        <ul id="example-1">
-          <li v-for="item in items">
-            {{ item.message }}
-          </li>
-        </ul>
-        ```
-        ```javascript
-        var example1 = new Vue({
-          el: '#example-1',
-          data: {
-            items: [
-              { message: 'Foo' },
-              { message: 'Bar' }
-            ]
-          }
-        })
-        ```
+```html
+<h1 v-if="ok">Yes</h1>
+```
+
+- `v-show`：相当于修改DOM元素的`display`属性，元素会始终保持在DOM结构中
+```html
+<h1 v-show="ok">Yes</h1>
+```
+
+- `v-bind`:绑定属性或者prop传值需要做值的解析
+```html
+<div class="static" v-bind:class="{ 'class-a': isA, 'class-b': isB }"></div>
+```
+```javascript
+data: {
+  isA: true,
+  isB: false
+}
+```
+
+- `v-on`：绑定方法或者事件
+
+- `v-for`:循环一个数组，根据数组中的元素来修改DOM
+```html
+<ul id="example-1">
+  <li v-for="item in items">
+    {{ item.message }}
+  </li>
+</ul>
+```
+```javascript
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+```
 2. 生命周期
-    - `ready`:常在这个时期用来获取数据 
+    - `ready`:常在这个时期用来获取数据
+![img](/content/images/2016/06/lifecycle.png)
 3. 事件
     - 基本原生事件都会支持，常用的包括`click`,`keyup`等等
 4. `watch`
     - 监听`data`中的某个属性，一旦发生变化就可以做相应的操作
-        ```javascript
-        var vm = new Vue({
-          data: {
-            a: 1
-          },
-          watch: {
-            'a': function (val, oldVal) {
-              console.log('new: %s, old: %s', val, oldVal)
-            },
-            // 方法名
-            'b': 'someMethod',
-            // 深度 watcher
-            'c': {
-              handler: function (val, oldVal) { /* ... */ },
-              deep: true
-            }
-          }
-        })
-        vm.a = 2 // -> new: 2, old: 1
-        ```
+```javascript
+var vm = new Vue({
+  data: {
+    a: 1
+  },
+  watch: {
+    'a': function (val, oldVal) {
+      console.log('new: %s, old: %s', val, oldVal)
+    },
+    // 方法名
+    'b': 'someMethod',
+    // 深度 watcher
+    'c': {
+      handler: function (val, oldVal) { /* ... */ },
+      deep: true
+    }
+  }
+})
+vm.a = 2 // -> new: 2, old: 1
+```
 
 ### 三、组件的应用
 >组件（Component）是 Vue.js 最强大的功能之一。组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素，Vue.js 的编译器为它添加特殊功能。
@@ -145,32 +148,33 @@ var MyComponent = Vue.extend({
 Vue.component('my-component', MyComponent)
 ```
 这样注册之后，就可以在父实例中使用
-    ```html
-    <div id="example">
-      <my-component></my-component>
-    </div>
-    ```
+```html
+<div id="example">
+  <my-component></my-component>
+</div>
+```
 
-    ```javascript
-    // 定义
-    var MyComponent = Vue.extend({
-      template: '<div>A custom component!</div>'
-    })
+```javascript
+// 定义
+var MyComponent = Vue.extend({
+  template: '<div>A custom component!</div>'
+})
 
-    // 注册
-    Vue.component('my-component', MyComponent)
+// 注册
+Vue.component('my-component', MyComponent)
 
-    // 创建根实例
-    new Vue({
-      el: '#example'
-    })
-    ```
+// 创建根实例
+new Vue({
+  el: '#example'
+})
+```
     渲染的结果就是：
-    ```html
-    <div id="example">
-      <div>A custom component!</div>
-    </div>
-    ```
+```html
+<div id="example">
+  <div>A custom component!</div>
+</div>
+```
+
 
 2. 传递数据
 
@@ -180,25 +184,25 @@ Vue.component('my-component', MyComponent)
 
     a. 静态props
 
-    ```javascript
-    Vue.component('child', {
-      // 声明 props
-      props: ['msg'],
-      // prop 可以用在模板内
-      // 可以用 `this.msg` 设置
-      template: '<span>{{ msg }}</span>'
-    })
-    ```
-    ```html
-    <child msg="hello!"></child>
-    ```
+```javascript
+Vue.component('child', {
+  // 声明 props
+  props: ['msg'],
+  // prop 可以用在模板内
+  // 可以用 `this.msg` 设置
+  template: '<span>{{ msg }}</span>'
+})
+```
+```html
+<child msg="hello!"></child>
+```
 
     b.动态props
 
     需要用到`v-bind`来绑定动态`props`到父组件的数据
-    ```html
-    <child v-bind:my-message="parentMsg"></child>
-    ```
+```html
+<child v-bind:my-message="parentMsg"></child>
+```
 
     c.双向绑定：`prop`默认是单向绑定，父->子,如果需要子->父，那么需要使用`.sync`强制双向绑定
 
@@ -208,30 +212,30 @@ Vue.component('my-component', MyComponent)
     可以采用`slot`特性保存父组件的内容
     例如：
     假如`my-component`组件有下面模板：
-    ```html
-    <div>
-      <h1>This is my component!</h1>
-      <slot>
-        如果没有分发内容则显示我。
-      </slot>
-    </div>
-    ```
+```html
+<div>
+  <h1>This is my component!</h1>
+  <slot>
+    如果没有分发内容则显示我。
+  </slot>
+</div>
+```
     父组件模板：
-    ```html
-    <my-component>
-      <p>This is some original content</p>
-      <p>This is some more original content</p>
-    </my-component>
-    ```
+```html
+<my-component>
+  <p>This is some original content</p>
+  <p>This is some more original content</p>
+</my-component>
+```
 
     渲染结果：
-    ```html
-    <div>
-      <h1>This is my component!</h1>
-      <p>This is some original content</p>
-      <p>This is some more original content</p>
-    </div>
-    ```
+```html
+<div>
+  <h1>This is my component!</h1>
+  <p>This is some original content</p>
+  <p>This is some more original content</p>
+</div>
+```
 
 ### 四、Vue原理
 >把一个普通对象传给 Vue 实例作为它的 data 选项，Vue.js 将遍历它的属性，用 Object.defineProperty 将它们转为 getter/setter
@@ -240,10 +244,14 @@ Vue.component('my-component', MyComponent)
 
 - 模板中每个指令/数据绑定都有一个对应的 watcher 对象，在计算过程中它把属性记录为依赖。之后当依赖的 setter 被调用时，会触发 watcher 重新计算 ，也就会导致它的关联指令更新 DOM
 
+![img](/content/images/2016/06/data-2.png)
+
 ### 五、Vue+VueRresource+VueRouter+Vux
-微信企业号目前使用的Vue技术选型是：`Vue`+`VueRresource`+`VueRouter`+`Vux`
+微信企业号目前使用的Vue技术选型是：
+`Vue`+`VueRresource`+`VueRouter`+`Vux`
 
 简单的代码示例：微信企业号产品百科
+
 - 路由
 - `v-link`
 - `v-if`
