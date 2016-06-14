@@ -3,7 +3,7 @@
 @Date:   2016-06-13 16:23:58
 @Email:  geyuanjun.sh@superjia.com
 @Last modified by:   geyuanjun
-@Last modified time: 2016-06-14 15:35:12
+@Last modified time: 2016-06-14 15:36:36
 -->
 
 
@@ -106,7 +106,6 @@ var example1 = new Vue({
 ```
 2. 生命周期
     - `ready`:常在这个时期用来获取数据
-![img](/content/images/2016/06/lifecycle.png)
 3. 事件
     - 基本原生事件都会支持，常用的包括`click`,`keyup`等等
 4. `watch`
@@ -244,7 +243,7 @@ Vue.component('child', {
 
 - 模板中每个指令/数据绑定都有一个对应的 watcher 对象，在计算过程中它把属性记录为依赖。之后当依赖的 setter 被调用时，会触发 watcher 重新计算 ，也就会导致它的关联指令更新 DOM
 
-![img](/content/images/2016/06/data-2.png)
+
 
 ### 五、Vue+VueRresource+VueRouter+Vux
 微信企业号目前使用的Vue技术选型是：
