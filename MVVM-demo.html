@@ -1,0 +1,40 @@
+<!--
+@Author: geyuanjun
+@Date:   2016-06-22 18:01:47
+@Email:  geyuanjun.sh@superjia.com
+@Last modified by:   geyuanjun
+@Last modified time: 2016-06-22 18:04:34
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+    <link rel="stylesheet" href="MVVM-demo.css" charset="utf-8">
+</head>
+<body>
+    <div id='demo1' class='demo'>
+      Hello <span class='{{css}}' data-text='xx'>{{name}}</span>!
+      <br>
+      <p>now is {{time}}</p>
+    </div>
+
+    <div id='demo2' class='demo'>
+      <label><span>name:</span>
+        <input name='name'>
+      </label>
+      <br>
+      <label><span>password:</span>
+        <input name='password'>
+      </label>
+      <pre>{
+      name: {{name}},
+      passowrd: {{password}}
+    }</pre>
+    </div>
+</body>
+<script src="MVVM-demo.js"></script>
+</html>
