@@ -3,7 +3,7 @@
  * @Date:   2016-06-22 18:02:8
  * @Email:  geyuanjun.sh@superjia.com
 * @Last modified by:   geyuanjun
-* @Last modified time: 2016-06-22 18:09:32
+* @Last modified time: 2016-06-23 15:19:2
  */
 
 
@@ -24,10 +24,12 @@
         var model = this.pureModel = opt.model || {}
         var model2sync = {} // save nodes
         this.model = getProxyModel()
+
         var me = this
         for (var k in model) {
             model2sync[k] = []
         }
+
         renderDOM(this.root, opt.model)
 
         if (opt.type === 'form') {
@@ -44,6 +46,7 @@
         function getProxyModel() {
             var obj = {}
             each(Object.keys(model), function(i, k) {
+
                 Object.defineProperty(obj, k, {
                     set: function(v) {
                         model[k] = v
@@ -62,6 +65,7 @@
 
         function renderDOM(dom) {
             each(dom.attributes, function() {
+                console.log(this);
                 render(this)
             })
             each(dom.childNodes, function() {
@@ -84,7 +88,9 @@
         }
 
         function render(node) {
+
             var arr = node.textContent.split(start)
+
             if (!arr.length) return
             var ret = ''
             for (var i = 0; i < arr.length; i++) {
@@ -122,12 +128,13 @@
 
 // demo
 
-var $ = document.querySelector.bind(document)
+// var $ = document.querySelector.bind(document)
 var demo1 = mvvm('#demo1', {
     model: {
         name: 'Monkey',
         time: Date(),
-        css: 'green'
+        css: 'green',
+        // time:'2016-06-23'
     }
 })
 setInterval(function() {
