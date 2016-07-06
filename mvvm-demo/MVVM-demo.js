@@ -3,7 +3,7 @@
  * @Date:   2016-06-22 18:02:8
  * @Email:  geyuanjun.sh@superjia.com
 * @Last modified by:   geyuanjun
-* @Last modified time: 2016-06-23 15:19:2
+* @Last modified time: 2016-07-06 17:22:59
  */
 
 
@@ -30,6 +30,7 @@
             model2sync[k] = []
         }
 
+        // model -> view
         renderDOM(this.root, opt.model)
 
         if (opt.type === 'form') {
@@ -43,6 +44,7 @@
             })
         }
 
+        // 存好了node和原始值, 通过修改model.name = xxx就更新视图（es5）
         function getProxyModel() {
             var obj = {}
             each(Object.keys(model), function(i, k) {
@@ -63,6 +65,7 @@
             return obj
         }
 
+        // render属性节点, 再render子节点, 如果子节点有dom节点, 则递归执行
         function renderDOM(dom) {
             each(dom.attributes, function() {
                 console.log(this);
@@ -87,6 +90,7 @@
             return ret
         }
 
+        // render函数的目标就是找到最小节点的textContent中含有{{key}}这样的变量, 并替换它
         function render(node) {
 
             var arr = node.textContent.split(start)
@@ -98,6 +102,8 @@
                 if (two.length === 1) ret += arr[i]
                 else {
                     ret += model[two[0]] + two[1]
+                    // model 持续更新支持
+                    // 如果节点中用到了某个model值, 我们就把这个节点存起来, 他的原始textContent也存起来, 这样以后就能根据变化的model找到这个节点并按照原始textContent更新
                     model2sync[two[0]].push({
                         node: node,
                         raw: node.textContent
@@ -108,6 +114,7 @@
         }
     }
 
+    // view -> model
     function on(el, events, handler) {
         if (Array.isArray(events)) {
             each(events, function() {
