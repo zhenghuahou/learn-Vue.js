@@ -3,15 +3,13 @@
  * @Date:   2016-06-22 18:02:8
  * @Email:  geyuanjun.sh@superjia.com
 * @Last modified by:   geyuanjun
-* @Last modified time: 2016-07-06 17:22:59
+* @Last modified time: 2016-07-13 14:56:1
  */
-
-
 
 ! function(f) {
     window.mvvm = f()
 }(function() {
-
+    // 寻找所需要的渲染的节点的标识
     var start = '{{'
     var end = '}}'
 
@@ -20,12 +18,12 @@
     }
 
     function MVVM(sel, opt) {
-        this.root = document.querySelector(sel) // root element
-        var model = this.pureModel = opt.model || {}
-        var model2sync = {} // save nodes
+        this.root = document.querySelector(sel) // 找到其根节点
+        var model = this.pureModel = opt.model || {} // 记录传入的model
+        var model2sync = {} // 保存节点
         this.model = getProxyModel()
 
-        var me = this
+        var me = this // this -> MVVM
         for (var k in model) {
             model2sync[k] = []
         }
@@ -33,6 +31,7 @@
         // model -> view
         renderDOM(this.root, opt.model)
 
+        // view -> model
         if (opt.type === 'form') {
             on(this.root, ['keyup', 'click'], function(e) {
                 var name = e.target.name
@@ -67,8 +66,7 @@
 
         // render属性节点, 再render子节点, 如果子节点有dom节点, 则递归执行
         function renderDOM(dom) {
-            each(dom.attributes, function() {
-                console.log(this);
+            each(dom.attributes, function() { // 逐步遍历id， class等等属性
                 render(this)
             })
             each(dom.childNodes, function() {
@@ -101,9 +99,9 @@
                 var two = arr[i].split(end)
                 if (two.length === 1) ret += arr[i]
                 else {
-                    ret += model[two[0]] + two[1]
-                    // model 持续更新支持
-                    // 如果节点中用到了某个model值, 我们就把这个节点存起来, 他的原始textContent也存起来, 这样以后就能根据变化的model找到这个节点并按照原始textContent更新
+                    ret += model[two[0]] + two[1] // 如果找到{{key}},则利用model中的key相应的进行替换
+                        // model 持续更新支持
+                        // 如果节点中用到了某个model值, 我们就把这个节点存起来, 他的原始textContent也存起来, 这样以后就能根据变化的model找到这个节点并按照原始textContent更新
                     model2sync[two[0]].push({
                         node: node,
                         raw: node.textContent
@@ -137,18 +135,18 @@
 
 // var $ = document.querySelector.bind(document)
 var demo1 = mvvm('#demo1', {
-    model: {
-        name: 'Monkey',
-        time: Date(),
-        css: 'green',
-        // time:'2016-06-23'
-    }
-})
-setInterval(function() {
-    demo1.model.time = Date()
-}, 1000)
+        model: {
+            name: 'Monkey',
+            time: Date(),
+            css: 'green',
+            time: '2016-06-23'
+        }
+    })
+    // setInterval(function() {
+    //     demo1.model.time = Date()
+    // }, 1000)
 var a = mvvm('#demo2', {
-    type: 'form', // 同步
+    type: 'form', // view -> model
     model: {
         name: '',
         password: ''
