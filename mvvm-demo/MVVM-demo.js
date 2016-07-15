@@ -3,7 +3,7 @@
  * @Date:   2016-06-22 18:02:8
  * @Email:  geyuanjun.sh@superjia.com
 * @Last modified by:   geyuanjun
-* @Last modified time: 2016-07-13 14:56:1
+* @Last modified time: 2016-07-15 10:34:45
  */
 
 ! function(f) {
@@ -88,7 +88,7 @@
             return ret
         }
 
-        // render函数的目标就是找到最小节点的textContent中含有{{key}}这样的变量, 并替换它
+        // render函数的目标就是找到最小节点的textContent中含有{{ key }}这样的变量, 并替换key
         function render(node) {
 
             var arr = node.textContent.split(start)
@@ -138,8 +138,7 @@ var demo1 = mvvm('#demo1', {
         model: {
             name: 'Monkey',
             time: Date(),
-            css: 'green',
-            time: '2016-06-23'
+            css: 'green'
         }
     })
     // setInterval(function() {
