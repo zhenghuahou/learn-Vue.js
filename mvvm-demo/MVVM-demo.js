@@ -3,7 +3,7 @@
  * @Date:   2016-06-22 18:02:8
  * @Email:  geyuanjun.sh@superjia.com
 * @Last modified by:   geyuanjun
-* @Last modified time: 2016-07-15 10:34:45
+* @Last modified time: 2016-07-15 17:01:38
  */
 
 ! function(f) {
@@ -101,7 +101,8 @@
                 else {
                     ret += model[two[0]] + two[1] // 如果找到{{key}},则利用model中的key相应的进行替换
                         // model 持续更新支持
-                        // 如果节点中用到了某个model值, 我们就把这个节点存起来, 他的原始textContent也存起来, 这样以后就能根据变化的model找到这个节点并按照原始textContent更新
+                        // 如果节点中用到了某个model值, 我们就把这个节点存起来, 他的原始textContent也存起来,
+                        // 这样以后就能根据变化的model找到这个节点并按照原始textContent更新
                     model2sync[two[0]].push({
                         node: node,
                         raw: node.textContent
@@ -141,9 +142,6 @@ var demo1 = mvvm('#demo1', {
             css: 'green'
         }
     })
-    // setInterval(function() {
-    //     demo1.model.time = Date()
-    // }, 1000)
 var a = mvvm('#demo2', {
     type: 'form', // view -> model
     model: {
