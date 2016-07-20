@@ -3,7 +3,7 @@
 * @Date:   2016-07-19 18:37:50
 * @Email:  geyuanjun.sh@superjia.com
 * @Last modified by:   geyuanjun
-* @Last modified time: 2016-07-19 19:02:38
+* @Last modified time: 2016-07-20 09:55:18
 */
 
 import {
@@ -48,4 +48,9 @@ const mutations = {
     state.added = savedCartItems,
     state.lastCheckout = 'failed'
   }
+}
+
+export default {
+  state,
+  mutations
 }
