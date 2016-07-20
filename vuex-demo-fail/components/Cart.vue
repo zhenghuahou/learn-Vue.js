@@ -1,4 +1,4 @@
-<template id="">
+<template>
   <div class="cart">
     <h2>你的购物车</h2>
     <p v-show="!products.length"><i>请选购商品</i></p>
@@ -22,7 +22,6 @@ import { checkout } from '../vuex/actions'
 import { cartProducts } from '../vuex/getters'
 
 export default {
-  name: 'Cart',
   vuex: {
     getters: {
       products: cartProducts,

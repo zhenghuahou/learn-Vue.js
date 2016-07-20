@@ -13,7 +13,6 @@
   import Cart from './Cart.vue'
 
   export default {
-    name: 'App',
     components: { ProductList, Cart }
   }
 
