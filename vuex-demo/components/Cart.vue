@@ -22,6 +22,7 @@ import { checkout } from '../vuex/actions'
 import { cartProducts } from '../vuex/getters'
 
 export default {
+  name: 'Cart',
   vuex: {
     getters: {
       products: cartProducts,
